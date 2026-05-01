@@ -4,6 +4,8 @@ const CodeBlock = ({ title, code, file }) => {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
+    if (!code) return; // 🛑 prevent crash
+
     try {
       await navigator.clipboard.writeText(code);
       setCopied(true);
@@ -13,13 +15,22 @@ const CodeBlock = ({ title, code, file }) => {
     }
   };
 
-  // Extract file name dynamically (important upgrade)
+  // Extract file name
   const getFileName = (path) => {
     if (!path) return "";
     return path.split("/").pop();
   };
 
-  const lines = code.split("\n");
+  // Detect file type for button text
+  const getFileLabel = (file) => {
+    if (!file) return "Download";
+    if (file.endsWith(".pbix")) return "Download Power BI";
+    if (file.endsWith(".csv")) return "Download CSV";
+    return "Download File";
+  };
+
+  // 🛑 Safe split (only if code exists)
+  const lines = code ? code.split("\n") : [];
 
   return (
     <div
@@ -46,22 +57,24 @@ const CodeBlock = ({ title, code, file }) => {
         <h3 style={{ margin: 0, fontSize: "16px" }}>{title}</h3>
 
         <div style={{ display: "flex", gap: "10px" }}>
-          {/* Copy Button */}
-          <button
-            onClick={handleCopy}
-            style={{
-              background: copied ? "#238636" : "#00ff88",
-              border: "none",
-              padding: "6px 12px",
-              cursor: "pointer",
-              borderRadius: "5px",
-              fontWeight: "500",
-            }}
-          >
-            {copied ? "Copied!" : "Copy"}
-          </button>
+          {/* ✅ Copy button only if code exists */}
+          {code && (
+            <button
+              onClick={handleCopy}
+              style={{
+                background: copied ? "#238636" : "#00ff88",
+                border: "none",
+                padding: "6px 12px",
+                cursor: "pointer",
+                borderRadius: "5px",
+                fontWeight: "500",
+              }}
+            >
+              {copied ? "Copied!" : "Copy"}
+            </button>
+          )}
 
-          {/* Download Button */}
+          {/* ✅ File Download */}
           {file && (
             <a href={file} download={getFileName(file)}>
               <button
@@ -75,52 +88,61 @@ const CodeBlock = ({ title, code, file }) => {
                   fontWeight: "500",
                 }}
               >
-                Download CSV
+                {getFileLabel(file)}
               </button>
             </a>
           )}
         </div>
       </div>
 
-      {/* Code */}
-      <div
-        style={{
-          fontFamily: "monospace",
-          fontSize: "14px",
-          overflowX: "auto",
-        }}
-      >
-        {lines.map((line, index) => (
-          <div
-            key={index}
-            style={{
-              display: "flex",
-              padding: "2px 10px",
-            }}
-          >
-            {/* Line Numbers */}
-            <span
+      {/* ✅ Code Section (only if exists) */}
+      {code && (
+        <div
+          style={{
+            fontFamily: "monospace",
+            fontSize: "14px",
+            overflowX: "auto",
+          }}
+        >
+          {lines.map((line, index) => (
+            <div
+              key={index}
               style={{
-                width: "40px",
-                color: "#6e7681",
-                userSelect: "none",
+                display: "flex",
+                padding: "2px 10px",
               }}
             >
-              {index + 1}
-            </span>
+              {/* Line Numbers */}
+              <span
+                style={{
+                  width: "40px",
+                  color: "#6e7681",
+                  userSelect: "none",
+                }}
+              >
+                {index + 1}
+              </span>
 
-            {/* Code Line */}
-            <span
-              style={{
-                whiteSpace: "pre",
-                color: "#c9d1d9",
-              }}
-            >
-              {line}
-            </span>
-          </div>
-        ))}
-      </div>
+              {/* Code Line */}
+              <span
+                style={{
+                  whiteSpace: "pre",
+                  color: "#c9d1d9",
+                }}
+              >
+                {line}
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* ✅ File Only View (BI 1–4) */}
+      {!code && file && (
+        <div style={{ padding: "20px", color: "#8b949e" }}>
+          No code available. Please download the file to view the content.
+        </div>
+      )}
     </div>
   );
 };

@@ -120,9 +120,9 @@ if __name__ == "__main__":
     print(f"Overall Accuracy: {accuracy * 100:.2f}%\n")
     print(classification_report(y_test, predictions, target_names=["Intact (0)", "Damaged (1)"]))
 
+    
 
-
-}`
+`
   },
 
   {
