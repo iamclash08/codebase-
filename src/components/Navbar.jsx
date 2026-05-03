@@ -9,10 +9,10 @@ const Navbar = () => {
       background: "#222",
       color: "white"
     }}>
-      <Link to="/dc" style={{ color: "white" }}>DC</Link>
-      <Link to="/dl" style={{ color: "white" }}>DL</Link>
-      <Link to="/bi" style={{ color: "white" }}>BI</Link>
       <Link to="/ci" style={{ color: "white" }}>CI</Link>
+      <Link to="/dc" style={{ color: "white" }}>DC</Link>
+      <Link to="/bi" style={{ color: "white" }}>BI</Link>
+      <Link to="/dl" style={{ color: "white" }}>DL</Link>
       <Link to="/manuals" style={{ color: "white" }}>Manuals</Link>
     </nav>
   );

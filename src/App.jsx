@@ -11,10 +11,18 @@ function App() {
     <BrowserRouter>
       <Navbar />
 
-      <div style={{ padding: "20px" }}>
+      <div
+        style={{
+          minHeight: "100vh",
+          backgroundImage: "url('/images/global.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat"
+        }}
+      >
         <Routes>
           {/*  Default redirect */}
-          <Route path="/" element={<Navigate to="/dc" />} />
+          <Route path="/" element={<Navigate to="/ci" />} />
 
           {/* Subject routes */}
           <Route path="/dc" element={<DC />} />
@@ -24,7 +32,7 @@ function App() {
           <Route path="/manuals" element={<Manuals />} />
 
           {/* Optional: fallback (if wrong URL entered) */}
-          <Route path="*" element={<Navigate to="/dc" />} />
+          <Route path="*" element={<Navigate to="/ci" />} />
         </Routes>
       </div>
     </BrowserRouter>

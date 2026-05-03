@@ -4,7 +4,7 @@ const CodeBlock = ({ title, code, file }) => {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
-    if (!code) return; // 🛑 prevent crash
+    if (!code) return;
 
     try {
       await navigator.clipboard.writeText(code);
@@ -15,13 +15,11 @@ const CodeBlock = ({ title, code, file }) => {
     }
   };
 
-  // Extract file name
   const getFileName = (path) => {
     if (!path) return "";
     return path.split("/").pop();
   };
 
-  // Detect file type for button text
   const getFileLabel = (file) => {
     if (!file) return "Download";
     if (file.endsWith(".pbix")) return "Download Power BI";
@@ -29,18 +27,30 @@ const CodeBlock = ({ title, code, file }) => {
     return "Download File";
   };
 
-  // 🛑 Safe split (only if code exists)
   const lines = code ? code.split("\n") : [];
 
   return (
     <div
       style={{
         marginBottom: "30px",
-        border: "1px solid #30363d",
-        borderRadius: "10px",
+        borderRadius: "12px",
         overflow: "hidden",
-        background: "#0d1117",
+
+        // 🔥 GLASS EFFECT
+        background: "rgba(15, 23, 42, 0.7)",
+        backdropFilter: "blur(8px)",
+
+        border: "1px solid rgba(255,255,255,0.1)",
+        boxShadow: "0 8px 32px rgba(0,0,0,0.3)",
+
+        transition: "transform 0.2s ease",
       }}
+      onMouseEnter={(e) =>
+        (e.currentTarget.style.transform = "scale(1.01)")
+      }
+      onMouseLeave={(e) =>
+        (e.currentTarget.style.transform = "scale(1)")
+      }
     >
       {/* Header */}
       <div
@@ -49,15 +59,15 @@ const CodeBlock = ({ title, code, file }) => {
           justifyContent: "space-between",
           alignItems: "center",
           padding: "12px 15px",
-          background: "#161b22",
+
+          background: "rgba(0,0,0,0.4)", // transparent header
           color: "white",
-          borderBottom: "1px solid #30363d",
+          borderBottom: "1px solid rgba(255,255,255,0.1)",
         }}
       >
         <h3 style={{ margin: 0, fontSize: "16px" }}>{title}</h3>
 
         <div style={{ display: "flex", gap: "10px" }}>
-          {/* ✅ Copy button only if code exists */}
           {code && (
             <button
               onClick={handleCopy}
@@ -66,15 +76,15 @@ const CodeBlock = ({ title, code, file }) => {
                 border: "none",
                 padding: "6px 12px",
                 cursor: "pointer",
-                borderRadius: "5px",
+                borderRadius: "6px",
                 fontWeight: "500",
+                transition: "0.2s",
               }}
             >
               {copied ? "Copied!" : "Copy"}
             </button>
           )}
 
-          {/* ✅ File Download */}
           {file && (
             <a href={file} download={getFileName(file)}>
               <button
@@ -83,7 +93,7 @@ const CodeBlock = ({ title, code, file }) => {
                   border: "none",
                   padding: "6px 12px",
                   cursor: "pointer",
-                  borderRadius: "5px",
+                  borderRadius: "6px",
                   color: "white",
                   fontWeight: "500",
                 }}
@@ -95,7 +105,7 @@ const CodeBlock = ({ title, code, file }) => {
         </div>
       </div>
 
-      {/* ✅ Code Section (only if exists) */}
+      {/* Code Section */}
       {code && (
         <div
           style={{
@@ -127,7 +137,7 @@ const CodeBlock = ({ title, code, file }) => {
               <span
                 style={{
                   whiteSpace: "pre",
-                  color: "#c9d1d9",
+                  color: "#e6edf3",
                 }}
               >
                 {line}
@@ -137,9 +147,14 @@ const CodeBlock = ({ title, code, file }) => {
         </div>
       )}
 
-      {/* ✅ File Only View (BI 1–4) */}
+      {/* File Only View */}
       {!code && file && (
-        <div style={{ padding: "20px", color: "#8b949e" }}>
+        <div
+          style={{
+            padding: "20px",
+            color: "#c9d1d9",
+          }}
+        >
           No code available. Please download the file to view the content.
         </div>
       )}
@@ -147,4 +162,4 @@ const CodeBlock = ({ title, code, file }) => {
   );
 };
 
-export default CodeBlock;
+export default CodeBlock;4
