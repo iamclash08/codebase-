@@ -4,6 +4,7 @@ import DC from "./pages/DC";
 import DL from "./pages/DL";
 import BI from "./pages/BI";
 import CI from "./pages/CI";
+import Manuals from "./pages/Manuals";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/dl" element={<DL />} />
           <Route path="/bi" element={<BI />} />
           <Route path="/ci" element={<CI />} />
+          <Route path="/manuals" element={<Manuals />} />
 
           {/* Optional: fallback (if wrong URL entered) */}
           <Route path="*" element={<Navigate to="/dc" />} />

@@ -13,6 +13,7 @@ const Navbar = () => {
       <Link to="/dl" style={{ color: "white" }}>DL</Link>
       <Link to="/bi" style={{ color: "white" }}>BI</Link>
       <Link to="/ci" style={{ color: "white" }}>CI</Link>
+      <Link to="/manuals" style={{ color: "white" }}>Manuals</Link>
     </nav>
   );
 };
