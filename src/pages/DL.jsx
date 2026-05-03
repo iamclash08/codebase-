@@ -26,7 +26,7 @@ const DL = () => {
             marginBottom: "20px",
           }}
         >
-          DL Subject
+          Deep Learning(DL)
         </h1>
 
         {dlData.map((item, index) => (

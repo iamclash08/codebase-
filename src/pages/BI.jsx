@@ -26,7 +26,7 @@ const BI = () => {
             marginBottom: "20px",
           }}
         >
-          BI Subject
+         Buisness Intelligence(BI)
         </h1>
 
         {biData.map((item, index) => (

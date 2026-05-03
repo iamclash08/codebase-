@@ -26,7 +26,7 @@ const DC = () => {
             marginBottom: "20px",
           }}
         >
-          DC Subject
+         Distributed Computing(DC)
         </h1>
 
         {dcData.map((item, index) => (

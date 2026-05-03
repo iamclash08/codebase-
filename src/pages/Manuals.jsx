@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-
 const Manuals = () => {
   const manuals = [
     {
@@ -15,33 +13,6 @@ const Manuals = () => {
       file: "/manuals/BI_Lab_Manual_CL-IV_BE_AI&DS[1].pdf"
     },
   ];
-
-  // 🎵 Lyrics array
-  const lyrics = [
-    "♪ And we run, and we run, and we run ♪",
-    "♪ Until we break through ♪",
-    "♪ If I get high enough ♪",
-    "♪ If I get high enough ♪",
-    "♪ Will I see you again ♪",
-    "♪ Will I see you again ♪",
-    "♪ If I get high ♪",
-    "♪ And we run, and we run, and we run♪",
-    "♪ And we run, and we run, and we run ♪",
-    "♪ Until we break through ♪",
-    "♪ Oh, and we run, and we run, and we run♪",
-    "♪ And we run, and we run, and we run ♪",
-  ];
-
-  const [currentLine, setCurrentLine] = useState(0);
-
-  // 🔄 Change lyrics every 2.5 sec
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentLine((prev) => (prev + 1) % lyrics.length);
-    }, 2500);
-
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <div
@@ -136,21 +107,6 @@ const Manuals = () => {
               </a>
             </div>
           ))}
-        </div>
-
-        {/* 🎵 Lyrics Section */}
-        <div
-          key={currentLine}
-          style={{
-            marginTop: "50px",
-            textAlign: "center",
-            color: "white",
-            fontSize: "56px",
-            fontWeight: "600",
-            animation: "fadeIn 1s ease-in-out",
-          }}
-        >
-          {lyrics[currentLine]}
         </div>
       </div>
     </div>

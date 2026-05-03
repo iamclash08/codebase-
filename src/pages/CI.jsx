@@ -26,7 +26,7 @@ const CI = () => {
             marginBottom: "20px",
           }}
         >
-          CI Subject
+          Computational Intelligence(CI)
         </h1>
 
         {ciData.map((item, index) => (
